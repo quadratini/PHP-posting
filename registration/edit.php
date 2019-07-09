@@ -13,8 +13,14 @@ if (isset($_GET['logout'])) {
     unset($_SESSION['username']);
     header("location: login.php");
 }
-$query = "";
-$title = mysqli_query(
+$query = "SELECT * FROM posts WHERE post_id = {$_GET['id']}";
+$result = mysqli_query($db, $query);
+
+while ($row = mysqli_fetch_assoc($result)) {
+    $prevContent = $row['content'];
+    $prevTitle = $row['title'];
+    $prevTime = $row['post_time'];
+}
 ?>
 
 <body>
@@ -22,8 +28,12 @@ $title = mysqli_query(
         <label>Edit Post<?php echo " " . $_GET['id'] ?></label><br>
     </div>
     <form action="" method="post">
-    <input type="text" name="title" id="title" placeholder="Title..." value="<?php echo $_GET['title'] ?>" />
-        <textarea type="submit" rows="25" name="postContent" placeholder="Content..."></textarea>
+    <input type="text" name="title" id="title" placeholder="Title..." value="<?php echo $prevTitle ?>" />
+        <textarea type="submit" rows="25" name="postContent" placeholder="Content..." >
+<?php
+echo $prevContent;
+?>
+        </textarea>
         <input type="submit" name="button" class="btn" value="Submit" />
     </form>
 </body>

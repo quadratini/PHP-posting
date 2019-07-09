@@ -79,7 +79,10 @@ $query = "INSERT INTO posts (title, content, author)
 while($row = mysqli_fetch_assoc($result)) {
     echo  "{$row['post_id']}. {$row['author']} {$row['post_time']}<nbr>
         <form id='special' action='edit.php?id={$row['post_id']}' method='post'>
-        <input type='submit' name='edit{$row['post_id']}' value='Edit {$row['post_id']}' />
+            <input type='submit' name='edit{$row['post_id']}' value='Edit {$row['post_id']}' />
+        </form>
+        <form id='special' method='post'> 
+            <input type='submit' name='delete{$row['post_id']}' value='Delete {$row['post_id']}' />
         </form>
         <br> Title: {$row['title']}<br> Content: {$row['content']}<br><br>";
 }
