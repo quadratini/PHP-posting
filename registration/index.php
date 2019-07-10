@@ -53,6 +53,10 @@ if (isset($_GET['logout'])) {
         <textarea type="submit" rows="25" name="postContent" placeholder="Content..."></textarea>
         <input type="submit" name="button" class="btn" value="Submit" />
     </form>
+
+    <form id="special" action="clear.php" method="post">
+        <br><input type="submit" name="button" class="btn" value="Clear Posts" /><br><br>
+    </form>
 <?php
 // Gets all table values.
 $sql = "SELECT * FROM posts";
@@ -81,12 +85,11 @@ while($row = mysqli_fetch_assoc($result)) {
         <form id='special' action='edit.php?id={$row['post_id']}' method='post'>
             <input type='submit' name='edit{$row['post_id']}' value='Edit {$row['post_id']}' />
         </form>
-        <form id='special' method='post'> 
+        <form id='special' action='delete.php?id={$row['post_id']}' method='post'> 
             <input type='submit' name='delete{$row['post_id']}' value='Delete {$row['post_id']}' />
         </form>
         <br> Title: {$row['title']}<br> Content: {$row['content']}<br><br>";
 }
-
 // Posts posts table contents.
 echo $postContent;
 echo "<br>" . $_SESSION['username'] . " " ;
